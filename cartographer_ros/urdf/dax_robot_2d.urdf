@@ -1,0 +1,116 @@
+<!--
+  Robot extrinsics for 2D Cartographer offline mapping.
+  Values taken from the robot /tf_static (base_link -> laser / imu / cameras).
+-->
+
+<robot name="dax_robot_2d">
+  <material name="orange">
+    <color rgba="1.0 0.5 0.2 1"/>
+  </material>
+  <material name="gray">
+    <color rgba="0.2 0.2 0.2 1"/>
+  </material>
+  <material name="blue">
+    <color rgba="0.2 0.4 0.8 1"/>
+  </material>
+  <material name="black">
+    <color rgba="0.1 0.1 0.1 1"/>
+  </material>
+
+  <link name="base_footprint"/>
+
+  <link name="base_link">
+    <visual>
+      <origin xyz="0 0 0.05"/>
+      <geometry>
+        <box size="0.50 0.40 0.10"/>
+      </geometry>
+      <material name="gray"/>
+    </visual>
+  </link>
+
+  <link name="base_center"/>
+
+  <link name="laser">
+    <visual>
+      <origin xyz="0 0 0"/>
+      <geometry>
+        <cylinder length="0.05" radius="0.03"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+  </link>
+
+  <link name="imu">
+    <visual>
+      <origin xyz="0 0 0"/>
+      <geometry>
+        <box size="0.06 0.04 0.02"/>
+      </geometry>
+      <material name="orange"/>
+    </visual>
+  </link>
+
+  <link name="front_depth_link">
+    <visual>
+      <origin xyz="0 0 0"/>
+      <geometry>
+        <box size="0.03 0.09 0.025"/>
+      </geometry>
+      <material name="blue"/>
+    </visual>
+  </link>
+
+  <link name="right_depth_link">
+    <visual>
+      <origin xyz="0 0 0"/>
+      <geometry>
+        <box size="0.03 0.09 0.025"/>
+      </geometry>
+      <material name="blue"/>
+    </visual>
+  </link>
+
+  <joint name="base_footprint_joint" type="fixed">
+    <parent link="base_footprint"/>
+    <child link="base_link"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </joint>
+
+  <!-- base_link -> base_center -->
+  <joint name="base_center_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="base_center"/>
+    <origin xyz="-0.25 0 0" rpy="0 0 0"/>
+  </joint>
+
+  <!-- base_link -> laser -->
+  <joint name="laser_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="laser"/>
+    <origin xyz="0.25 0 0.235" rpy="0 0 0"/>
+  </joint>
+
+  <!-- base_link -> imu -->
+  <joint name="imu_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="imu"/>
+    <origin xyz="0.0715 0.038 0" rpy="0 0 0"/>
+  </joint>
+
+  <!-- base_link -> front_depth_link -->
+  <joint name="front_depth_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="front_depth_link"/>
+    <origin xyz="0.281082 0.007368 0.224892"
+            rpy="0.003917 0.442757 -0.033531"/>
+  </joint>
+
+  <!-- base_link -> right_depth_link -->
+  <joint name="right_depth_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="right_depth_link"/>
+    <origin xyz="-0.027834 -0.259734 0.293516"
+            rpy="0.017327 0.237466 -1.551100"/>
+  </joint>
+</robot>
